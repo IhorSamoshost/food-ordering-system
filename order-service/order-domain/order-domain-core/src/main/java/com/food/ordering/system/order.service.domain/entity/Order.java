@@ -136,7 +136,7 @@ public class Order extends AggregateRoot<OrderId> {
     private void validateItemsPrice() {
         Money orderItemsTotal = items.stream().map(orderItem -> {
             validateItemPrice(orderItem);
-            return orderItem.getPrice().multiply(orderItem.getQuantity());
+            return orderItem.getSubtotal();
         }).reduce(Money.ZERO, Money::add);
 
         if (!price.equals(orderItemsTotal)) {
@@ -183,7 +183,7 @@ public class Order extends AggregateRoot<OrderId> {
             return this;
         }
 
-        public Builder restauratntId(RestaurantId val) {
+        public Builder restaurantId(RestaurantId val) {
             restaurantId = val;
             return this;
         }

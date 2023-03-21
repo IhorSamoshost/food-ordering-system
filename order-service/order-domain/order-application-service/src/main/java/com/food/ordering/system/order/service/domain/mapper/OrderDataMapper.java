@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderDataMapper {
@@ -24,17 +25,17 @@ public class OrderDataMapper {
         return Restaurant.builder()
                 .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
                 .products(createOrderCommand.getItems().stream()
-                        .map(orderItem -> new Product(new ProductId(orderItem.getProductId()))).toList())
+                        .map(orderItem -> new Product(new ProductId(orderItem.getProductId()))).collect(Collectors.toList()))
                 .build();
     }
 
     public Order createOrderCommandToOrder(CreateOrderCommand createOrderCommand) {
         return Order.builder()
                 .customerId(new CustomerId(createOrderCommand.getCustomerId()))
-                .restauratntId(new RestaurantId(createOrderCommand.getRestaurantId()))
+                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
                 .deliveryAddress(orderAddressToStreetAddress(createOrderCommand.getAddress()))
                 .price(new Money(createOrderCommand.getPrice()))
-                .items(orderItemsToOrderItemsEntities(createOrderCommand.getItems()))
+                .items(orderItemsToOrderItemEntities(createOrderCommand.getItems()))
                 .build();
     }
 
@@ -54,7 +55,7 @@ public class OrderDataMapper {
                 .build();
     }
 
-    private List<OrderItem> orderItemsToOrderItemsEntities(
+    private List<OrderItem> orderItemsToOrderItemEntities(
             List<com.food.ordering.system.order.service.domain.dto.create.OrderItem> orderItems) {
         return orderItems.stream().map(orderItem ->
                 OrderItem.builder()
@@ -62,7 +63,7 @@ public class OrderDataMapper {
                         .price(new Money(orderItem.getPrice()))
                         .quantity(orderItem.getQuantity())
                         .subtotal(new Money(orderItem.getSubTotal()))
-                        .build()).toList();
+                        .build()).collect(Collectors.toList());
     }
 
     private StreetAddress orderAddressToStreetAddress(OrderAddress orderAddress) {
