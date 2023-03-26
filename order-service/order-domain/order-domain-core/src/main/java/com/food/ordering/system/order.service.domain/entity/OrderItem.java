@@ -13,7 +13,7 @@ public class OrderItem extends BaseEntity<OrderItemId> {
     private final Money subtotal;
 
     private OrderItem(Builder builder) {
-        super.setId(builder.orderItemId);
+        setId(builder.orderItemId);
         product = builder.product;
         quantity = builder.quantity;
         price = builder.price;

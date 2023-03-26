@@ -3,7 +3,6 @@ package com.food.ordering.system.order.service.domain;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import lombok.extern.slf4j.Slf4j;
 import com.food.ordering.system.order.service.domain.entity.Order;
-import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.event.OrderCancelledEvent;
 import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
