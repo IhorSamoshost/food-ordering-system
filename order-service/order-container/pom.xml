@@ -23,11 +23,11 @@
         </dependency>
         <dependency>
             <groupId>com.food.ordering.system</groupId>
-            <artifactId>order-dataaccess</artifactId>
+            <artifactId>order-application</artifactId>
         </dependency>
         <dependency>
             <groupId>com.food.ordering.system</groupId>
-            <artifactId>order-application</artifactId>
+            <artifactId>order-dataaccess</artifactId>
         </dependency>
         <dependency>
             <groupId>com.food.ordering.system</groupId>
