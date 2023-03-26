@@ -65,7 +65,8 @@ public class OrderApplicationServiceTest {
                         .city("Paris")
                         .build())
                 .price(PRICE)
-                .items(List.of(OrderItem.builder()
+                .items(List.of(
+                        OrderItem.builder()
                                 .productId(PRODUCT_ID)
                                 .quantity(1)
                                 .price(new BigDecimal("50.00"))
@@ -76,7 +77,9 @@ public class OrderApplicationServiceTest {
                                 .quantity(3)
                                 .price(new BigDecimal("50.00"))
                                 .subTotal(new BigDecimal("150.00"))
-                                .build()))
+                                .build()
+                        )
+                )
                 .build();
 
         createOrderCommandWrongPrice = CreateOrderCommand.builder()
@@ -159,10 +162,11 @@ public class OrderApplicationServiceTest {
     public void testCreateOrderWithWrongTotalPrice() {
         OrderDomainException orderDomainException = assertThrows(OrderDomainException.class,
                 () -> orderApplicationService.createOrder((createOrderCommandWrongPrice)));
-        assertEquals("Total price: " + createOrderCommandWrongPrice.getPrice()
-                        + " is not equal to Order items total: "
-                        + createOrderCommandWrongPrice.getItems().stream().map(OrderItem::getSubTotal)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add) + "!",
+        assertEquals("Total price: 250.00 is not equal to Order items total: 200.00!",
+//        assertEquals("Total price: " + createOrderCommandWrongPrice.getPrice()
+//                        + " is not equal to Order items total: "
+//                        + createOrderCommandWrongPrice.getItems().stream().map(OrderItem::getSubTotal)
+//                        .reduce(BigDecimal.ZERO, BigDecimal::add) + "!",
                 orderDomainException.getMessage());
     }
 
@@ -184,7 +188,8 @@ public class OrderApplicationServiceTest {
                 )
                 .active(false)
                 .build();
-        when(restaurantRepository.findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
+        when(restaurantRepository
+                .findRestaurantInformation(orderDataMapper.createOrderCommandToRestaurant(createOrderCommand)))
                 .thenReturn(Optional.of(passiveRestaurant));
 
         OrderDomainException orderDomainException = assertThrows(OrderDomainException.class,
