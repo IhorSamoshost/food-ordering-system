@@ -6,6 +6,7 @@
         <module>common</module>
         <module>infrastructure</module>
         <module>customer-service</module>
+        <module>payment-service</module>
     </modules>
 
     <parent>
@@ -56,6 +57,11 @@
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>payment_domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
