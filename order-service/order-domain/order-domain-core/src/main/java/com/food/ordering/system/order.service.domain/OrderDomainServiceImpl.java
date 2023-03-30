@@ -13,9 +13,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.food.ordering.system.domain.DomainConstants.UTC;
+
 @Slf4j
-public class OrderDomainServiceImpl implements com.food.ordering.system.order.service.domain.OrderDomainService {
-    private static final String UTC = "UTC";
+public class OrderDomainServiceImpl implements OrderDomainService {
 
     @Override
     public OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant) {
